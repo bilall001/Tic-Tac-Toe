@@ -1,19 +1,24 @@
 import { useState } from "react";
 
-function Player({ name, symbol }) {
+function Player({ initialName, symbol }) {
   const [isEditing, setisEditing] = useState(false);
+  const [playerName,setplayerName] = useState(initialName) 
 
   function handleEditClick() {
     setisEditing((editing) => !editing);
   }
-  let PlayerName = <span className="player-name">{name}</span>;
+  function handleNameChange(event) {
+    setplayerName(event.target.value) 
+  }
+
+  let FullPlayerName = <span className="player-name">{playerName}</span>;
   if (isEditing) {
-    PlayerName = <input type="text" required value={name} />;
+    FullPlayerName = <input type="text" required value={playerName} onChange={handleNameChange} />; /*two-way-binding*/
   }
   return (
     <li>
       <span className="player">
-        {PlayerName}
+        {FullPlayerName}
         <span className="player-symbol">{symbol}</span>
       </span>
       <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>
