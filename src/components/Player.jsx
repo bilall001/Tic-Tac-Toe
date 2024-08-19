@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Player({ initialName, symbol }) {
+function Player({ initialName, symbol,isActivePlayer }) {
   const [isEditing, setisEditing] = useState(false);
   const [playerName,setplayerName] = useState(initialName) 
 
@@ -16,7 +16,7 @@ function Player({ initialName, symbol }) {
     FullPlayerName = <input type="text" required value={playerName} onChange={handleNameChange} />; /*two-way-binding*/
   }
   return (
-    <li>
+    <li className={isActivePlayer ? 'active' : undefined}>
       <span className="player">
         {FullPlayerName}
         <span className="player-symbol">{symbol}</span>
