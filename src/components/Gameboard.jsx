@@ -1,19 +1,18 @@
-const initailGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+// const initailGameBoard = [
+//   [null, null, null],
+//   [null, null, null],
+//   [null, null, null],
+// ];
 
-function Gameboard({ isactivesquare, turns }) {
+function Gameboard({ isactivesquare, board }) {
+  // let gameBoard = initailGameBoard;
 
-  let gameBoard = initailGameBoard;
+  // for (const turn of turns){
 
-  for (const turn of turns){
-
-    const {square, player} = turn;
-    const { row, col} = square;
-    gameBoard[row][col] = player;
-    }
+  //   const {square, player} = turn;
+  //   const { row, col} = square;
+  //   gameBoard[row][col] = player;
+  //   }
   // const [gameBoard, setgameBoard] = useState(initailGameBoard);
 
   // function handleSymbolchange(rowIndex, colIndex) {
@@ -26,17 +25,19 @@ function Gameboard({ isactivesquare, turns }) {
   //   });
 
   //   isactivesquare();
-// }
-  
+  // }
 
   return (
     <ol id="game-board">
-       { gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((col, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => isactivesquare(rowIndex,colIndex)}>
+                <button
+                  onClick={() => isactivesquare(rowIndex, colIndex)}
+                  disabled={col !== null}
+                >
                   {col}
                 </button>
               </li>
