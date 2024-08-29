@@ -3,6 +3,7 @@ import Player from "./components/Player.jsx";
 import Gameboard from "./components/Gameboard.jsx";
 import Log from "./components/log.jsx";
 import { WINNING_COMBINATIONS } from "./components/WC.js";
+import GameOver from "./components/GameOver.jsx";
 
 const initailGameBoard = [
   [null, null, null],
@@ -47,6 +48,8 @@ function App() {
     }
   }
 
+  const isdraw = gameTurn.length === 9 && !winner;
+
 
   function handleclicksquare(rowIndex, colIndex) {
     // setActivePlayer((isActive) => (isActive === "X" ? "O" : "X"));
@@ -59,6 +62,10 @@ function App() {
 
       return newTurn;
     });
+  }
+
+  function handlerestart(){
+    
   }
 
   return (
@@ -76,7 +83,7 @@ function App() {
             isActivePlayer={activePlayer === "O"}
           />
         </ol>
-        {winner && <p>YOU WON ,{winner}!</p>}
+        {(winner || isdraw) && <GameOver winner={winner} isRestart={handlerestart} />}
         <Gameboard
           isactivesquare={handleclicksquare}
           // activePlayerSymbol={activePlayer}
