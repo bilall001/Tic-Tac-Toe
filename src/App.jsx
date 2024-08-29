@@ -25,10 +25,14 @@ function deriveActivePlayer(gameTurn){
 function App() {
   // const [activePlayer, setActivePlayer] = useState("X");
   const [gameTurn, setgameTurn] = useState([]);
+  const [players, setplayers] = useState({
+    X: "player 1",
+    O: "player 2"
+});
 
   const activePlayer = deriveActivePlayer(gameTurn);
 
-  let gameBoard = initailGameBoard;
+  let gameBoard = [...initailGameBoard.map((array) => [...array])];
   for (const turn of gameTurn){
     
     const {square, player} = turn;
@@ -44,7 +48,7 @@ function App() {
     const thirdsquare = gameBoard[combination[2].row][combination[2].column];
   
     if(firstsquare && firstsquare === secondsquare && firstsquare === thirdsquare){
-      winner = firstsquare;
+      winner = players[firstsquare];
     }
   }
 
@@ -65,7 +69,17 @@ function App() {
   }
 
   function handlerestart(){
-    
+    setgameTurn([]);
+  }
+
+  function handlenewnamechange(symbol,newName){
+    setplayers(prePlayers => {
+      return (
+        {...prePlayers,
+          [symbol]: newName
+        }
+      )
+    })
   }
 
   return (
@@ -76,11 +90,13 @@ function App() {
             initialName="Player 1"
             symbol="X"
             isActivePlayer={activePlayer === "X"}
+            onchangename={handlenewnamechange}
           />
           <Player
             initialName="Player 2"
             symbol="O"
             isActivePlayer={activePlayer === "O"}
+            onchangename={handlenewnamechange}
           />
         </ol>
         {(winner || isdraw) && <GameOver winner={winner} isRestart={handlerestart} />}
